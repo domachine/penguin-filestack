@@ -1,0 +1,28 @@
+{
+  "name": "penguin-filestack",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "rollup -w -c rollup.config.js -o index.js src/index.js",
+    "build": "rollup -c rollup.config.js -o index.js src/index.js"
+  },
+  "keywords": [],
+  "author": "Dominik Burgdörfer <db@domachine.de> (https://domachine.de/)",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-watch": "^3.2.2"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "nocache": "^2.0.0",
+    "request": "^2.79.0",
+    "xtend": "^4.0.1"
+  },
+  "peerDependencies": {
+    "penguin.js": "^1.0.0-beta.2"
+  }
+}
