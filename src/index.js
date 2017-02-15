@@ -44,14 +44,14 @@ export function mount (props, el) {
     callback = defaultMountCallback,
     save
   } = props
-  const render = url => callback(url, el)
+  const render = url => callback(url || defaultURL || '', el)
   const nonOpts = ['defaultURL', 'callback', 'save', 'destroy']
   const opts =
     Object.keys(props)
       .filter(k => nonOpts.indexOf(k) === -1)
       .reduce((opts, k) => xtend({}, opts, { [k]: props[k] }), {})
   let { fields: { [field]: previousURL } } = store.getState()
-  render(previousURL || defaultURL || '')
+  render(previousURL)
   store.subscribe(() => {
     const { fields: { [field]: url } } = store.getState()
     if (url !== previousURL && previousURL && previousURL.match(/filestack/)) {
@@ -59,8 +59,9 @@ export function mount (props, el) {
       xhr.open('DELETE', `/filestack?url=${previousURL}`, true)
       xhr.send()
     }
+    const oldURL = previousURL
     previousURL = url
-    render(url)
+    if (url !== oldURL) render(url)
   })
   mountScript(() => {
     el.addEventListener('click', () => {
