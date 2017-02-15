@@ -37,6 +37,7 @@ export function render ({ field, store, callback = defaultRenderCallback }) {
 }
 
 export function mount (props, el) {
+  if (props.store.getState().isBuilt) return
   const {
     field,
     store,
