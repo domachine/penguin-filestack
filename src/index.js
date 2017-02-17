@@ -9,6 +9,10 @@ const defaultMountCallback = (url, el) => {
   el.setAttribute('src', url)
 }
 
+const defaultRegister = (fn, el) => {
+  el.addEventListener('click', () => fn())
+}
+
 const mountConfigurationScript = fn => {
   const script = document.createElement('script')
   script.setAttribute('id', 'filestack-script-config')
@@ -31,18 +35,24 @@ const mountScript = fn => {
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
-export function render ({ field, store, callback = defaultRenderCallback }) {
+export function render ({
+  field,
+  defaultURL,
+  store,
+  callback = defaultRenderCallback
+}) {
   const { fields } = store.getState()
-  return defaultRenderCallback(fields[field])
+  return callback(fields[field] || defaultURL || '')
 }
 
 export function mount (props, el) {
-  if (props.store.getState().isBuilt) return
+  if (process.env.PENGUIN_ENV === 'production') return
   const {
     field,
     store,
     defaultURL,
     callback = defaultMountCallback,
+    register = defaultRegister,
     save
   } = props
   const render = url => callback(url || defaultURL || '', el)
@@ -65,7 +75,7 @@ export function mount (props, el) {
     if (url !== oldURL) render(url)
   })
   mountScript(() => {
-    el.addEventListener('click', () => {
+    register(() => {
       window.filepicker.pick(
         opts,
         ({ url }) => {
@@ -73,6 +83,6 @@ export function mount (props, el) {
           save()
         }
       )
-    })
+    }, el)
   })
 }
