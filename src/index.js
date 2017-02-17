@@ -1,4 +1,4 @@
-import { update } from 'penguin.js/actions'
+import { update } from 'penguin.js'
 import xtend from 'xtend'
 
 const defaultRenderCallback = url => (
@@ -35,28 +35,26 @@ const mountScript = fn => {
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
-export function render ({
+export function render ({ store }, {
   field,
   defaultURL,
-  store,
   callback = defaultRenderCallback
 }) {
   const { fields } = store.getState()
   return callback(fields[field] || defaultURL || '')
 }
 
-export function mount (props, el) {
+export function mount (ctx, props, el) {
   if (process.env.PENGUIN_ENV === 'production') return
+  const { store, save } = ctx
   const {
     field,
-    store,
     defaultURL,
     callback = defaultMountCallback,
-    register = defaultRegister,
-    save
+    register = defaultRegister
   } = props
   const render = url => callback(url || defaultURL || '', el)
-  const nonOpts = ['defaultURL', 'callback', 'save', 'destroy']
+  const nonOpts = ['defaultURL', 'callback']
   const opts =
     Object.keys(props)
       .filter(k => nonOpts.indexOf(k) === -1)

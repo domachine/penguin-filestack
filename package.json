@@ -2,7 +2,8 @@
   "name": "penguin-filestack",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "middleware.js",
+  "module": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "rollup -w -c rollup.config.js -o index.js src/index.js",

@@ -1,5 +1,5 @@
 module.exports = {
-  external: ['penguin.js/actions', 'xtend'],
+  external: ['penguin.js', 'xtend'],
   plugins: [require('rollup-plugin-buble')()],
-  format: 'cjs'
+  format: 'es'
 }
