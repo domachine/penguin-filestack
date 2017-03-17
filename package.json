@@ -1,7 +1,7 @@
 {
   "name": "penguin-filestack",
   "version": "1.0.0",
-  "description": "",
+  "description": "A penguin integration for https://www.filestack.com.",
   "main": "middleware.js",
   "module": "index.js",
   "scripts": {
@@ -9,7 +9,10 @@
     "watch": "rollup -w -c rollup.config.js -o index.js src/index.js",
     "prepublishOnly": "rollup -c rollup.config.js -o index.js src/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "penguinjs",
+    "penguinjs-component"
+  ],
   "author": "Dominik Burgdörfer <db@domachine.de> (https://domachine.de/)",
   "license": "MIT",
   "devDependencies": {
@@ -25,5 +28,13 @@
   },
   "peerDependencies": {
     "penguin.js": "^1.0.0-beta.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domachine/penguin-filestack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/domachine/penguin-filestack/issues"
+  },
+  "homepage": "https://github.com/domachine/penguin-filestack#readme"
 }
