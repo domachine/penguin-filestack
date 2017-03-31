@@ -40,3 +40,31 @@ Now you can use this as a component. Just place it onto an `img` tag.
 * `defaultURL` - This specifies the file url that is used if the user didn't enter a url, yet.
 
 All other props are passed as options to the `filepicker.pick` function. [Read the docs](https://www.filestack.com/docs/javascript-api/pick).
+
+### Extending
+
+The behaviour of the component can be customized to match various. Check the following example which edits the background-image style of a div.
+
+```js
+import {
+  mount as mountFilepicker,
+  render as renderFilepicker
+} from 'penguin-filestack'
+
+export function mount (ctx, props, el) {
+  if (process.env.PENGUIN_ENV === 'production') return
+  props.register = fn => {
+    el.addEventListener('click', () => fn())
+  }
+  props.callback = function callback (url) {
+    el.style.backgroundImage = `url(${url})`
+  }
+  mountFilepicker(ctx, props, el)
+}
+
+export function render (ctx, props) {
+  props.callback = url => (
+    { attrs: { style: `background-url: url(${url})` } }
+  )
+}
+```
