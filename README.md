@@ -64,7 +64,8 @@ export function mount (ctx, props, el) {
 
 export function render (ctx, props) {
   props.callback = url => (
-    { attrs: { style: `background-url: url(${url})` } }
+    { attrs: { style: `background-image: url(${url})` } }
   )
+  return renderFilepicker(ctx, props)
 }
 ```
